@@ -1,14 +1,31 @@
-# Skiller Runner Manager releases
+# Skiller Runner binary releases
 
-This public repository contains signed Windows installers and runner payloads for **Skiller Runner Manager**. Application and runner source code remain in private repositories.
+This public repository is the binary-distribution channel for two independently versioned products:
 
-Download the latest installer from [Releases](https://github.com/martinjokub/skiller-runner-releases/releases/latest).
+- **Skiller Runner** — native execution payloads tagged `runner-vX.Y.Z`.
+- **Skiller Runners Manager for Windows** — installable tray application tagged `manager-windows-vX.Y.Z`.
 
-Each release includes:
+Runner and Manager source code remain private in the canonical Skiller monorepo. This repository contains no editable application source and is not a second Runner repository.
 
-- an Authenticode-signed Windows NSIS installer;
-- a runner payload ZIP used for independent per-profile updates;
-- `runner-manifest.json` plus an Ed25519 signature;
-- SHA-256 checksums.
+## Download
 
-The private release workflow refuses to publish when the Windows code-signing certificate, manifest signing key, or publishing token is missing. Skiller Runner Manager verifies the signed manifest and payload checksum before installing a runner version.
+Open [Releases](https://github.com/martinjokub/skiller-runner-releases/releases) and select the product-specific tag:
+
+- For a new Windows installation, choose the newest `manager-windows-v...` release and download `Skiller-Runners-Manager-...-x64.exe`.
+- Runner payloads under `runner-v...` are normally downloaded and verified automatically by the installed Manager.
+
+Do not use a repository-wide “latest release” link: Runner and Manager releases share this repository but have separate version lines.
+
+## Verification
+
+Every product release includes an Ed25519-signed manifest, SHA-256 checksums, the approved INTERNET IDEAS LTD EULA, and reviewed third-party notices. Manager installers are additionally Authenticode-signed; Windows must report the expected publisher as **INTERNET IDEAS LTD**.
+
+The public verification key is committed at [`runner-release-public-key.pem`](runner-release-public-key.pem). The installed Manager embeds the same trust root and rejects invalid signatures, product/tag mismatches, unsafe assets, or checksum/size mismatches.
+
+## Ownership
+
+Skiller Runner and Skiller Runners Manager are proprietary software of **INTERNET IDEAS LTD**. AI Masters Apps is a brand operated by INTERNET IDEAS LTD. The licence included with each release controls use and distribution of the binaries.
+
+## Security
+
+Do not report vulnerabilities in a public issue. Follow [`SECURITY.md`](SECURITY.md) and use GitHub private vulnerability reporting.
